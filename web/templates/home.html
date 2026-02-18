@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if datos %}
+<div class="container m-2">
+<table class="table table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Email</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Dirección</th>
+      <th scope="col">Ciudad</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Código Postal</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for dato in datos %}
+    <tr>
+      <td>{{dato.nombre}}</td>
+      <td>{{dato.apellido}}</td>
+      <td>{{dato.email}}</td>
+      <td>{{dato.telefono}}</td>
+      <td>{{dato.direccion}}</td>
+      <td>{{dato.ciudad}}</td>
+      <td>{{dato.estado}}</td>
+      <td>{{dato.codigo_postal}}</td>
+      <td>
+          <a href="{% url 'registro_editar' dato.id %}" 
+             class="btn btn-sm btn-outline-primary me-1"
+             title="Editar">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <form action="{% url 'registro_eliminar' dato.id %}" 
+                method="post" 
+                style="display: inline;"
+                onsubmit="return confirm('¿Estás seguro de eliminar este registro?');">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="btn btn-sm btn-outline-danger"
+                    title="Eliminar">
+              <i class="bi bi-trash"></i>
+            </button>
+          </form>
+      </td>
+    </tr>    
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+    <p>No hay datos por mostrar</p>
+{% endif %}
+
+{% endblock %}

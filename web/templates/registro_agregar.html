@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Agergar Registro Nuevo</h1>
+
+<form action="{% url 'registro_agregar' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="text" value="{{ next }}">
+    <button type="submit">Agregar Registro</button>
+</form>
+
+{% endblock %}
